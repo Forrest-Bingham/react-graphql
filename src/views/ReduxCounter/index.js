@@ -7,7 +7,10 @@ import { increment, decrement } from "../../store/actions/counter";
 
 import { Link } from "react-router-dom";
 
-export default function ReduxCounter() {
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+
+const ReduxCounter = () => {
   const dispatch = useDispatch();
 
   const count = useSelector(state => state.counter.count);
@@ -34,7 +37,21 @@ export default function ReduxCounter() {
           --
         </Button>
         <Box h="2rem" />
+        <Query
+          query={gql`
+            query {
+              hello
+            }
+          `}
+        >
+          {({ data }) => {
+            console.log(data);
+            return <Card>{data?.hello}</Card>;
+          }}
+        </Query>
       </Card>
     </Wrapper>
   );
-}
+};
+
+export default ReduxCounter;

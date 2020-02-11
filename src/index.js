@@ -10,6 +10,8 @@ import "bushido-strap/css/main.css";
 import * as serviceWorker from "./serviceWorker";
 
 // Set up Redux/Router
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "react-apollo";
 import { applyMiddleware, createStore } from "redux";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -21,12 +23,19 @@ import rootReducer from "./store/reducers";
 
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
+const client = new ApolloClient({
+  // uri: "https://vm8mjvrnv3.lp.gql.zone/graphql"
+  uri: "http://localhost:4000/"
+});
+
 // You can add a theme prop to ThemeProvider and pass it any theme of your choosing
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
+    <ApolloProvider client={client}>
+      <Router>
+        <App />
+      </Router>
+    </ApolloProvider>
   </Provider>,
   document.getElementById("root")
 );

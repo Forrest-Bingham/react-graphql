@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const INCREMENT = "INCREMENT";
 export const DECREMENT = "DECREMENT";
 
@@ -14,3 +16,12 @@ export const decrement = () => {
     payload: 1
   };
 };
+
+// export const decrement = () => dispatch => {
+//   dispatch({ type: "START" });
+//   axios.post("http://localhost:4000/", {
+//     // query {
+//     //   hello
+//     // },
+//   });
+// };
